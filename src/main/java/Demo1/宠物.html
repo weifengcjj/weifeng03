@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的歪瓜宠物</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2F1113%2F041R0124406%2F20041Q24406-8-1200.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660288812&t=b0dcd73b097206b21eca6f6228f2b223");
+            background-size:100%;
+
+        }
+        .img{
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            background-image: url("https://pic2.zhimg.com/v2-11fadef7522a8b8844bc89f72ed78f8d_b.webp");
+            /*background-color: tomato;*/
+            background-size: cover;/*等比例*/
+        }
+    </style>
+</head>
+<body>
+<div class="img"></div>
+<script>
+    let img=document.querySelector(".img")
+    //小图片旋转的角度
+    let deg=0
+    let imgx=0;
+    let imgy=0;
+    let imgl=0;
+    let imgt=0;
+    let y=0;
+    let index=0;
+
+    window.addEventListener("mousemove",function (xyz) {
+        //获取事件
+        imgx=xyz.x-img.offsetLeft-img.clientWidth/2;
+        //获取图片的位置减去点击的位置
+
+        imgy=xyz.y-img.offsetTop-img.clientHeight/2;
+        deg=360*Math.atan(imgy/imgx)/(2*Math.PI);
+        index =0;
+        let x=event.clientX;
+        if(img.offsetLeft<x)
+        {
+            y=-180;
+            //翻转
+        }else{
+            y=0;
+        }
+    })
+    setInterval(()=>{
+        img.style.transform = "rotateZ("+deg+"deg) rotateY("+y+"deg)";
+        index++;
+        if(index<50)
+        {
+            imgl+=imgx/50;
+            imgt+=imgy/50;
+        }
+        img.style.left=imgl+'px';
+        img.style.top=imgt+'px';
+    },10)
+
+</script>
+</body>
+</html>
